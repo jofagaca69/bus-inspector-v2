@@ -23,18 +23,25 @@ export interface ItemNavegacion {
 
 export const itemsNavegacion: ItemNavegacion[] = [
   {
-    href: "/inicio",
+    href: "/inspeccion",
     etiqueta: "Inspección diaria",
     descripcion: "Lista de chequeo preventiva del bus",
     icono: "📋",
-    disponible: false,
+    disponible: true,
   },
   {
     href: "/historial",
     etiqueta: "Historial de inspecciones",
     descripcion: "Consulta inspecciones anteriores",
     icono: "🗂️",
-    disponible: false,
+    disponible: true,
+  },
+  {
+    href: "/alertas",
+    etiqueta: "Centro de alertas",
+    descripcion: "Novedades abiertas y recordatorios",
+    icono: "🔔",
+    disponible: true,
   },
   {
     href: "/aprendizaje",
@@ -87,7 +94,7 @@ export const itemsNavegacion: ItemNavegacion[] = [
   },
 ];
 
-/** Ítem exclusivo de administradores, se agrega aparte al menú/portada. */
+/** Ítems exclusivos de administradores, se agregan aparte al menú/portada. */
 export const itemAdmin: ItemNavegacion = {
   href: "/admin/usuarios",
   etiqueta: "Conductores",
@@ -97,8 +104,17 @@ export const itemAdmin: ItemNavegacion = {
   soloRol: "admin",
 };
 
+export const itemAdminBuses: ItemNavegacion = {
+  href: "/admin/buses",
+  etiqueta: "Flota",
+  descripcion: "Buses y asignación a conductores",
+  icono: "🚌",
+  disponible: true,
+  soloRol: "admin",
+};
+
 export function itemsParaRol(rol: Rol): ItemNavegacion[] {
   const items = [...itemsNavegacion];
-  if (rol === "admin") items.push(itemAdmin);
+  if (rol === "admin") items.push(itemAdminBuses, itemAdmin);
   return items;
 }

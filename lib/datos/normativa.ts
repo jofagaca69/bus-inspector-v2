@@ -1,4 +1,5 @@
 import type { EntradaNormativa } from "@/lib/datos/tipos";
+import { ART_30_LEY_769 } from "@/lib/datos/normativa-inspeccion";
 
 /**
  * Normativa de tránsito aplicable a conductores de servicio público,
@@ -19,10 +20,12 @@ export const normativa: EntradaNormativa[] = [
     id: "equipo-carretera",
     icono: "🧰",
     titulo: "Equipo de carretera obligatorio",
-    fuente: "Ley 769 de 2002 · Art. 30",
-    cuerpo:
-      "El Código Nacional de Tránsito exige portar: llanta de repuesto, herramientas básicas, dos señales de carretera reflectivas, botiquín de primeros auxilios, extintor y linterna.",
-    tip: "Revisá el vencimiento del extintor y los insumos del botiquín, no solo que estén presentes.",
+    // Cita textual, no parafraseada: ver lib/datos/normativa-inspeccion.ts,
+    // única fuente de verdad de este texto para todo el módulo de
+    // Inspección Diaria (fichas técnicas del equipo de carretera incluidas).
+    fuente: ART_30_LEY_769.fuente,
+    cuerpo: ART_30_LEY_769.texto,
+    tip: "Revisa el vencimiento del extintor y los insumos del botiquín, no solo que estén presentes.",
   },
   {
     id: "cinturon-seguridad",

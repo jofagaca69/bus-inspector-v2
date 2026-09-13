@@ -443,6 +443,61 @@ export const evaluaciones: Record<string, Pregunta[]> = {
         "No recordar tramos recientes de la vía, junto con párpados pesados y bostezos frecuentes, indica que ya estás en riesgo.",
     },
   ],
+
+  inspeccion: [
+    {
+      id: "inspeccion-1",
+      enunciado: "Si los frenos se sienten esponjosos durante la prueba preoperacional, ¿qué debes hacer?",
+      opciones: [
+        "Salir a ruta y estar pendiente",
+        "Marcarlos como fuera de servicio y no sacar el bus hasta revisarlos",
+        "Marcarlos como correctos si frenan, aunque sea despacio",
+        "Ignorarlo si es la primera vez que pasa",
+      ],
+      correcta: 1,
+      explicacion:
+        "Los frenos son un componente crítico (semáforo rojo): cualquier señal de falla obliga a marcarlo fuera de servicio y detener la operación hasta corregirlo.",
+    },
+    {
+      id: "inspeccion-2",
+      enunciado: "¿Qué porcentaje de cumplimiento calcula la inspección diaria?",
+      opciones: [
+        "El promedio de los componentes marcados como correctos",
+        "Un número fijo que no depende de lo marcado",
+        "Solo si hay novedades reportadas",
+        "El tiempo que tardó la inspección",
+      ],
+      correcta: 0,
+      explicacion:
+        "El porcentaje es la proporción de componentes correctos sobre el total revisado; se calcula y se congela en el momento de finalizar el acta.",
+    },
+    {
+      id: "inspeccion-3",
+      enunciado: "El extintor y el botiquín, ¿en qué se sustentan legalmente dentro de la app?",
+      opciones: [
+        "En una opinión del fabricante del bus",
+        "En la Ley 769 de 2002 (Art. 30) y la metodología PESV de la Res. 40595 de 2022",
+        "No tienen sustento legal, son solo buena práctica",
+        "En el manual del conductor de la empresa",
+      ],
+      correcta: 1,
+      explicacion:
+        "El equipo de carretera (gato, señales, botiquín, extintor, herramientas) cita textualmente el Art. 30 del Código Nacional de Tránsito y el Paso 16/17 del PESV.",
+    },
+    {
+      id: "inspeccion-4",
+      enunciado: "Una vez finalizada (firmada) una inspección, ¿se puede editar?",
+      opciones: [
+        "Sí, cualquier conductor puede corregirla después",
+        "No: el acta queda inmutable y solo se reporta una novedad nueva si aparece un problema",
+        "Solo el mismo día en que se hizo",
+        "Sí, pero solo el administrador",
+      ],
+      correcta: 1,
+      explicacion:
+        "Una inspección finalizada es un acta con valor probatorio: la base de datos la bloquea para edición o borrado, incluso para el panel de administración.",
+    },
+  ],
 };
 
 export function obtenerEvaluacion(clave: string): Pregunta[] {
