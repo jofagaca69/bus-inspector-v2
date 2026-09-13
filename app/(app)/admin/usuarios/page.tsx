@@ -21,16 +21,16 @@ export default async function PaginaUsuarios() {
     <div className="flex flex-1 flex-col gap-8 px-4 py-6">
       <div>
         <h1 className="text-lg font-semibold">Conductores</h1>
-        <p className="text-sm text-foreground/60">
+        <p className="text-sm text-texto-suave">
           Alta y gestión de las cuentas de los conductores.
         </p>
       </div>
 
       <FormularioNuevoUsuario />
 
-      <div className="flex flex-col divide-y divide-black/10 rounded-lg border border-black/10 dark:divide-white/10 dark:border-white/15">
+      <div className="flex flex-col divide-y divide-borde rounded-lg border border-borde bg-superficie">
         {(usuarios ?? []).length === 0 && (
-          <p className="px-4 py-6 text-sm text-foreground/60">
+          <p className="px-4 py-6 text-sm text-texto-suave">
             Todavía no hay conductores registrados.
           </p>
         )}
@@ -44,7 +44,7 @@ export default async function PaginaUsuarios() {
               <p className="text-sm font-medium">
                 {usuario.nombre_completo || "(sin nombre)"}
               </p>
-              <p className="text-xs text-foreground/60">
+              <p className="text-xs text-texto-suave">
                 Cédula {usuario.cedula} ·{" "}
                 {usuario.rol === "admin" ? "Administrador" : "Conductor"} ·{" "}
                 {usuario.activo ? "Activo" : "Inactivo"}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { obtenerPerfil } from "@/lib/auth/dal";
 import { cerrarSesion } from "@/lib/auth/acciones";
+import { MenuLateral } from "@/components/navegacion/menu-lateral";
 
 // Nota: este layout SÍ llama a obtenerPerfil() para mostrar el nombre del
 // usuario en la cabecera, pero eso no reemplaza el control de acceso de
@@ -14,27 +15,22 @@ export default async function LayoutApp({
 
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      <header className="flex items-center justify-between border-b border-black/10 px-4 py-3 dark:border-white/15">
-        <Link href="/inicio" className="text-sm font-semibold">
-          Cootranszipa
-        </Link>
+      <header className="flex items-center justify-between border-b border-borde bg-superficie px-4 py-3">
+        <div className="flex items-center gap-3">
+          <MenuLateral rol={perfil.rol} />
+          <Link href="/inicio" className="text-sm font-semibold">
+            Cootranszipa
+          </Link>
+        </div>
 
         <div className="flex items-center gap-3">
-          <span className="hidden text-sm text-foreground/60 sm:inline">
+          <span className="hidden text-sm text-texto-suave sm:inline">
             {perfil.nombre_completo || perfil.cedula}
           </span>
-          {perfil.rol === "admin" && (
-            <Link
-              href="/admin/usuarios"
-              className="text-sm font-medium underline underline-offset-2"
-            >
-              Usuarios
-            </Link>
-          )}
           <form action={cerrarSesion}>
             <button
               type="submit"
-              className="text-sm font-medium text-foreground/70 hover:text-foreground"
+              className="text-sm font-medium text-texto-suave hover:text-texto"
             >
               Salir
             </button>

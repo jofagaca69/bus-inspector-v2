@@ -21,7 +21,7 @@ export function BotonEstadoUsuario({
           cambiarEstadoUsuario(id, !activo);
         });
       }}
-      className="shrink-0 rounded-md border border-black/10 px-3 py-1.5 text-xs font-medium disabled:opacity-60 dark:border-white/15"
+      className="shrink-0 rounded-md border border-borde px-3 py-1.5 text-xs font-medium disabled:opacity-60"
     >
       {activo ? "Desactivar" : "Activar"}
     </button>
