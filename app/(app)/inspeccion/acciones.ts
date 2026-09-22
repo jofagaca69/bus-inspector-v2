@@ -203,6 +203,8 @@ export async function guardarObservaciones(
   return { exito: true };
 }
 
+const esquemaKilometraje = z.number().int().min(0).max(3_000_000).nullable();
+
 /**
  * Cierra el acta. El cálculo real (conteos, %, semáforo) lo hace la
  * función SQL cerrar_inspeccion() en una sola sentencia atómica (ver
@@ -210,10 +212,35 @@ export async function guardarObservaciones(
  * pueden escribir resultados distintos. lib/inspeccion/calculo.ts
  * calcula lo mismo en TypeScript solo para la previsualización optimista
  * mientras el conductor sigue marcando ítems.
+ *
+ * `kilometraje` es opcional y se guarda ANTES de cerrar: después del cierre
+ * el acta es inmutable (trigger bloquear_inspeccion_finalizada). Con él, el
+ * resumen puede mostrar los km recorridos desde la inspección anterior.
  */
-export async function finalizarInspeccion(inspeccionId: string): Promise<EstadoInspeccion> {
+export async function finalizarInspeccion(
+  inspeccionId: string,
+  kilometraje: number | null = null,
+): Promise<EstadoInspeccion> {
   await obtenerPerfil();
+
+  // Un Server Action recibe argumentos no confiables: se valida el rango
+  // (el mismo del CHECK kilometraje_razonable) antes de tocar la BD.
+  const km = esquemaKilometraje.safeParse(kilometraje);
+  if (!km.success) {
+    return { error: "El kilometraje debe ser un número entero entre 0 y 3.000.000." };
+  }
+
   const supabase = await crearClienteServidor();
+
+  if (km.data !== null) {
+    const { error: errorKm } = await supabase
+      .from("inspecciones")
+      .update({ kilometraje: km.data })
+      .eq("id", inspeccionId);
+    if (errorKm) {
+      return { error: "No se pudo guardar el kilometraje. Intenta de nuevo." };
+    }
+  }
 
   const { error } = await supabase.rpc("cerrar_inspeccion", {
     p_inspeccion_id: inspeccionId,
@@ -232,7 +259,7 @@ export async function finalizarInspeccion(inspeccionId: string): Promise<EstadoI
   revalidatePath("/inspeccion");
   revalidatePath("/historial");
   revalidatePath("/inicio");
-  redirect(`/historial/${inspeccionId}`);
+  redirect(`/historial/${inspeccionId}/resumen`);
 }
 
 /** Descarta un borrador (nunca un acta finalizada: la RLS solo lo permite en curso). */

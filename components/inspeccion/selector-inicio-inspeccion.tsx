@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { iniciarInspeccion } from "@/app/(app)/inspeccion/acciones";
-import type { Bus, TipoInspeccion } from "@/lib/inspeccion/tipos";
+import type { Bus } from "@/lib/inspeccion/tipos";
 
 export function SelectorInicioInspeccion({
   buses,
@@ -12,7 +12,11 @@ export function SelectorInicioInspeccion({
   busAsignadoId: string | null;
 }) {
   const [busId, setBusId] = useState(busAsignadoId ?? buses[0]?.id ?? "");
-  const [tipo, setTipo] = useState<TipoInspeccion>("completa");
+  // El check rápido está oculto a pedido del negocio: toda inspección se
+  // inicia como "completa". El tipo "rapida" (lib/datos/componentes.ts,
+  // componentesDeChequeoRapido) sigue existiendo en el modelo de datos
+  // por si se reactiva más adelante; solo se quitó este selector.
+  const tipo = "completa" as const;
   const [pendiente, iniciarTransicion] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -44,33 +48,6 @@ export function SelectorInicioInspeccion({
             </option>
           ))}
         </select>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          type="button"
-          onClick={() => setTipo("completa")}
-          className={`rounded-lg border px-3 py-3 text-left text-sm font-medium transition-colors ${
-            tipo === "completa"
-              ? "border-acento bg-acento-suave text-acento"
-              : "border-borde text-texto-suave"
-          }`}
-        >
-          Inspección completa
-          <span className="mt-0.5 block text-xs font-normal opacity-80">Los 23 componentes</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setTipo("rapida")}
-          className={`rounded-lg border px-3 py-3 text-left text-sm font-medium transition-colors ${
-            tipo === "rapida"
-              ? "border-acento bg-acento-suave text-acento"
-              : "border-borde text-texto-suave"
-          }`}
-        >
-          Check rápido
-          <span className="mt-0.5 block text-xs font-normal opacity-80">Solo lo crítico</span>
-        </button>
       </div>
 
       {error && (

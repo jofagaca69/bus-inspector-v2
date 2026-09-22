@@ -67,7 +67,8 @@ export function MenuLateral({ rol }: { rol: Rol }) {
             </div>
 
             {items.map((item) => {
-              const activo = pathname === item.href;
+              // También activo en subrutas (ej. /aprendizaje/fatiga-y-somnolencia marca "Centro de aprendizaje").
+              const activo = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
               if (!item.disponible) {
                 return (

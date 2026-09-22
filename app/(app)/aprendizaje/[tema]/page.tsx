@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
 import { obtenerPerfil } from "@/lib/auth/dal";
 import { CabeceraModulo } from "@/components/ui/cabecera-modulo";
+import { BloquesContenido } from "@/components/ui/bloques-contenido";
 import { VideoYoutube } from "@/components/ui/video-youtube";
-import { Evaluacion } from "@/components/ui/evaluacion";
-import { obtenerTema, temasAprendizaje } from "@/lib/datos/aprendizaje";
+import { EvaluacionTema } from "@/components/aprendizaje/evaluacion-tema";
+import { MarcarVisto } from "@/components/aprendizaje/marcar-visto";
+import { minutosDeLectura, obtenerTema, temasAprendizaje } from "@/lib/datos/aprendizaje";
+import { ETIQUETA_CATEGORIA } from "@/lib/datos/categorias-aprendizaje";
 import { obtenerEvaluacion } from "@/lib/datos/evaluaciones";
 
 export function generateStaticParams() {
@@ -13,7 +16,7 @@ export function generateStaticParams() {
 export default async function PaginaTemaAprendizaje({
   params,
 }: PageProps<"/aprendizaje/[tema]">) {
-  await obtenerPerfil();
+  const perfil = await obtenerPerfil();
   const { tema: slug } = await params;
   const tema = obtenerTema(slug);
 
@@ -23,21 +26,24 @@ export default async function PaginaTemaAprendizaje({
 
   return (
     <div className="flex flex-1 flex-col gap-6 px-4 py-6">
+      <MarcarVisto usuarioId={perfil.id} slug={tema.slug} />
+
       <CabeceraModulo titulo={tema.titulo} subtitulo={tema.resumen} />
 
-      <div className="flex flex-col gap-4">
-        {tema.secciones.map((seccion) => (
-          <div
-            key={seccion.titulo}
-            className="rounded-xl border border-borde bg-superficie p-4"
-          >
-            <p className="mb-1.5 text-sm font-semibold">{seccion.titulo}</p>
-            <p className="text-sm leading-relaxed text-texto/90">
-              {seccion.contenido}
-            </p>
-          </div>
-        ))}
-      </div>
+      <p className="-mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-texto-suave">
+        <span className="rounded-full bg-superficie-2 px-2.5 py-0.5 font-medium">
+          {ETIQUETA_CATEGORIA[tema.categoria]}
+        </span>
+        <span>≈ {minutosDeLectura(tema)} min de lectura</span>
+        {tema.videos.length > 0 && (
+          <span>
+            🎬 {tema.videos.length} {tema.videos.length === 1 ? "video" : "videos"}
+          </span>
+        )}
+        {preguntas.length > 0 && <span>📝 {preguntas.length} preguntas</span>}
+      </p>
+
+      <BloquesContenido bloques={tema.bloques} />
 
       {tema.puntosClave.length > 0 && (
         <div className="rounded-xl bg-acento-suave p-4">
@@ -59,8 +65,13 @@ export default async function PaginaTemaAprendizaje({
         <div className="flex flex-col gap-3">
           <p className="text-sm font-semibold">Videos recomendados</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {tema.videos.map((id) => (
-              <VideoYoutube key={id} id={id} titulo={tema.titulo} />
+            {tema.videos.map((video) => (
+              <figure key={video.id} className="flex flex-col gap-1.5">
+                <VideoYoutube id={video.id} titulo={video.titulo} />
+                {video.fuente && (
+                  <figcaption className="text-xs text-texto-suave">{video.fuente}</figcaption>
+                )}
+              </figure>
             ))}
           </div>
         </div>
@@ -69,7 +80,7 @@ export default async function PaginaTemaAprendizaje({
       {preguntas.length > 0 && (
         <div className="flex flex-col gap-3">
           <p className="text-sm font-semibold">Ponte a prueba</p>
-          <Evaluacion preguntas={preguntas} />
+          <EvaluacionTema usuarioId={perfil.id} slug={tema.slug} preguntas={preguntas} />
         </div>
       )}
     </div>

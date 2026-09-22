@@ -8,6 +8,19 @@ export function cx(...clases: Array<string | false | null | undefined>): string 
 }
 
 /**
+ * Minúsculas, sin tildes y sin espacios en los bordes: para que un buscador
+ * encuentre "señal" escribiendo "senal". Vive aquí (y no dentro de un
+ * componente cliente) porque también la llaman Server Components.
+ */
+export function normalizarBusqueda(texto: string): string {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .trim();
+}
+
+/**
  * `crypto.randomUUID()` exige contexto seguro (localhost cuenta, una IP LAN
  * por HTTP no). Este fallback evita que probar por LAN en el celular rompa
  * el primer guardado. Postgres también puede generar el id con

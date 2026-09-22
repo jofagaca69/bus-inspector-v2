@@ -153,3 +153,74 @@ export const listarNovedadesDeInspeccion = cache(
     return data ?? [];
   },
 );
+
+/* ------------------------------------------------------------------ */
+/* Lecturas para el resumen estadístico                                */
+/* ------------------------------------------------------------------ */
+/*
+ * OJO con el alcance: la RLS de inspecciones/novedades solo deja a un
+ * conductor ver lo SUYO (el admin ve todo). Por eso, para un conductor,
+ * "el historial del bus" son sus propias inspecciones de ese bus. No se
+ * usa el cliente admin para ampliarlo: estas lecturas nunca lo usan.
+ */
+
+/**
+ * Actas ya cerradas de un bus, anteriores a `antesDe` (ISO), de la más
+ * reciente a la más antigua.
+ */
+export const listarHistorialDeBus = cache(
+  async (busId: string, antesDe: string, limite = 8): Promise<InspeccionConBus[]> => {
+    const supabase = await crearClienteServidor();
+    const { data } = await supabase
+      .from("inspecciones")
+      .select("*, bus:buses(placa, numero_interno)")
+      .eq("bus_id", busId)
+      .not("finalizada_en", "is", null)
+      .lt("iniciada_en", antesDe)
+      .order("iniciada_en", { ascending: false })
+      .limit(limite)
+      .returns<InspeccionConBus[]>();
+    return data ?? [];
+  },
+);
+
+export type ItemConNovedad = Pick<
+  InspeccionItem,
+  "inspeccion_id" | "codigo_componente" | "estado"
+>;
+
+/**
+ * Ítems que requirieron revisión o quedaron fuera de servicio en las
+ * inspecciones dadas. Sin cache(): recibe un arreglo y React cachea por
+ * identidad de argumentos, así que nunca acertaría. Usa el índice parcial
+ * inspeccion_items_fallas_idx (ver 0003_inspecciones.sql).
+ */
+export async function listarItemsConNovedad(
+  inspeccionIds: string[],
+): Promise<ItemConNovedad[]> {
+  if (inspeccionIds.length === 0) return [];
+  const supabase = await crearClienteServidor();
+  const { data } = await supabase
+    .from("inspeccion_items")
+    .select("inspeccion_id, codigo_componente, estado")
+    .in("inspeccion_id", inspeccionIds)
+    .in("estado", ["requiere_revision", "fuera_de_servicio"])
+    .returns<ItemConNovedad[]>();
+  return data ?? [];
+}
+
+/** Novedades abiertas o en proceso de un bus, las más graves primero. */
+export const listarNovedadesAbiertasDeBus = cache(
+  async (busId: string): Promise<Novedad[]> => {
+    const supabase = await crearClienteServidor();
+    const { data } = await supabase
+      .from("novedades")
+      .select("*")
+      .eq("bus_id", busId)
+      .in("estado", ["abierta", "en_proceso"])
+      .order("severidad", { ascending: false })
+      .order("created_at", { ascending: false })
+      .returns<Novedad[]>();
+    return data ?? [];
+  },
+);

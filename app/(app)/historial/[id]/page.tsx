@@ -10,6 +10,7 @@ import { firmarEvidencias } from "@/lib/inspeccion/evidencias";
 import { CabeceraModulo } from "@/components/ui/cabecera-modulo";
 import { Icono } from "@/components/ui/icono";
 import { Evaluacion } from "@/components/ui/evaluacion";
+import { ResumenEstadistico } from "@/components/inspeccion/resumen-estadistico";
 import { obtenerComponente } from "@/lib/datos/componentes";
 import { obtenerEvaluacion } from "@/lib/datos/evaluaciones";
 
@@ -105,6 +106,14 @@ export default async function PaginaDetalleHistorial({
           </p>
         )}
       </div>
+
+      <ResumenEstadistico
+        inspeccion={inspeccion}
+        items={items}
+        novedades={novedades}
+        evidencias={evidencias}
+        esAdmin={perfil.rol === "admin"}
+      />
 
       {novedades.length > 0 && (
         <div className="flex flex-col gap-2">

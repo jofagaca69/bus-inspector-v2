@@ -6,6 +6,7 @@ import {
   obtenerItemsDeInspeccion,
 } from "@/lib/inspeccion/consultas";
 import { InspeccionEnCurso } from "@/components/inspeccion/inspeccion-en-curso";
+import { ConductorLinea } from "@/components/inspeccion/conductor-linea";
 
 export default async function PaginaInspeccionDetalle({
   params,
@@ -30,11 +31,16 @@ export default async function PaginaInspeccionDetalle({
   ]);
 
   return (
-    <InspeccionEnCurso
-      inspeccion={inspeccion}
-      itemsIniciales={items}
-      conductorId={perfil.id}
-      busesActivos={buses}
-    />
+    <>
+      <div className="px-4 pt-4">
+        <ConductorLinea perfil={perfil} />
+      </div>
+      <InspeccionEnCurso
+        inspeccion={inspeccion}
+        itemsIniciales={items}
+        conductorId={perfil.id}
+        busesActivos={buses}
+      />
+    </>
   );
 }
