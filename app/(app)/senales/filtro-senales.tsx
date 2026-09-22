@@ -69,7 +69,7 @@ export function FiltroSenales({ senales }: { senales: Senal[] }) {
               className="flex flex-col items-center gap-2 rounded-xl border border-borde bg-superficie p-3 text-center"
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- pictogramas propios en /public, tamaño fijo pequeño */}
-              <img src={s.imagen} alt={s.nombre} className="h-16 w-16 object-contain" />
+              <img src={s.imagen} alt={s.nombre} loading="lazy" decoding="async" className="h-16 w-16 object-contain" />
               <span className="rounded-full bg-superficie-2 px-2 py-0.5 text-[10px] font-medium text-texto-suave">
                 {s.codigo}
               </span>

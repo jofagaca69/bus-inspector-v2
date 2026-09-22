@@ -56,6 +56,7 @@ export function InspeccionEnCurso({
   const [vista, setVista] = useState<VistaBus>("lateral");
   const [hoja, setHoja] = useState<EstadoHoja>(null);
   const [errorFinal, setErrorFinal] = useState<string | null>(null);
+  const [kilometraje, setKilometraje] = useState("");
   const [pendiente, iniciarTransicion] = useTransition();
 
   const idsRevisables = useMemo(
@@ -84,8 +85,17 @@ export function InspeccionEnCurso({
 
   function alFinalizar() {
     setErrorFinal(null);
+
+    // Vacío = no se registra kilometraje. Se acepta "12.345" o "12 345".
+    const texto = kilometraje.replace(/[.\s]/g, "");
+    const km = texto === "" ? null : Number(texto);
+    if (km !== null && (!Number.isInteger(km) || km < 0 || km > 3_000_000)) {
+      setErrorFinal("El kilometraje debe ser un número entero entre 0 y 3.000.000.");
+      return;
+    }
+
     iniciarTransicion(async () => {
-      const respuesta = await finalizarInspeccion(inspeccion.id);
+      const respuesta = await finalizarInspeccion(inspeccion.id, km);
       if (respuesta?.error) setErrorFinal(respuesta.error);
     });
   }
@@ -164,6 +174,18 @@ export function InspeccionEnCurso({
       )}
 
       <div className="flex flex-col gap-2">
+        <label className="flex flex-col gap-1 text-xs text-texto-suave">
+          Kilometraje del odómetro (opcional)
+          <input
+            type="text"
+            inputMode="numeric"
+            value={kilometraje}
+            onChange={(e) => setKilometraje(e.target.value)}
+            placeholder="Ej. 123456"
+            className="rounded-md border border-borde bg-superficie px-3 py-2.5 text-sm text-texto placeholder:text-neutro"
+          />
+        </label>
+
         <button
           type="button"
           disabled={pendiente || faltantes > 0}

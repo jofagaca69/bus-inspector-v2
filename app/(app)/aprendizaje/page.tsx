@@ -1,10 +1,24 @@
 import Link from "next/link";
 import { obtenerPerfil } from "@/lib/auth/dal";
 import { CabeceraModulo } from "@/components/ui/cabecera-modulo";
-import { temasAprendizaje } from "@/lib/datos/aprendizaje";
+import { CatalogoTemas, type TarjetaTema } from "@/components/aprendizaje/catalogo-temas";
+import { minutosDeLectura, temasAprendizaje } from "@/lib/datos/aprendizaje";
+import { obtenerEvaluacion } from "@/lib/datos/evaluaciones";
 
 export default async function PaginaAprendizaje() {
-  await obtenerPerfil();
+  const perfil = await obtenerPerfil();
+
+  // Solo lo que el índice muestra: el contenido de cada tema no viaja al cliente.
+  const tarjetas: TarjetaTema[] = temasAprendizaje.map((tema) => ({
+    slug: tema.slug,
+    titulo: tema.titulo,
+    resumen: tema.resumen,
+    icono: tema.icono,
+    categoria: tema.categoria,
+    minutosLectura: minutosDeLectura(tema),
+    videos: tema.videos.length,
+    preguntas: obtenerEvaluacion(tema.slug).length,
+  }));
 
   return (
     <div className="flex flex-1 flex-col gap-6 px-4 py-6">
@@ -13,19 +27,7 @@ export default async function PaginaAprendizaje() {
         subtitulo="Temas de formación para manejar mejor y más seguro"
       />
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {temasAprendizaje.map((tema) => (
-          <Link
-            key={tema.slug}
-            href={`/aprendizaje/${tema.slug}`}
-            className="flex flex-col gap-2 rounded-xl border border-borde bg-superficie p-4 transition-colors hover:border-acento/50 hover:bg-superficie-2"
-          >
-            <span className="text-2xl">{tema.icono}</span>
-            <p className="text-sm font-semibold">{tema.titulo}</p>
-            <p className="text-xs text-texto-suave">{tema.resumen}</p>
-          </Link>
-        ))}
-      </div>
+      <CatalogoTemas temas={tarjetas} usuarioId={perfil.id} />
 
       <div className="rounded-xl border border-borde bg-superficie p-4">
         <p className="mb-3 text-sm font-semibold">Otros recursos relacionados</p>

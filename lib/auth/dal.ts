@@ -3,7 +3,7 @@ import "server-only";
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { crearClienteServidor } from "@/lib/supabase/servidor";
-import type { Perfil } from "@/lib/auth/tipos";
+import type { PerfilConFicha } from "@/lib/auth/tipos";
 
 /**
  * Data Access Layer de autenticación.
@@ -55,7 +55,7 @@ export const verificarSesion = cache(async () => {
  * el admin surte efecto en la siguiente petición del conductor, sin
  * esperar a que expire su token.
  */
-export const obtenerPerfil = cache(async (): Promise<Perfil> => {
+export const obtenerPerfil = cache(async (): Promise<PerfilConFicha> => {
   const user = await verificarSesion();
   const supabase = await crearClienteServidor();
 
@@ -63,7 +63,7 @@ export const obtenerPerfil = cache(async (): Promise<Perfil> => {
     .from("profiles")
     .select("*")
     .eq("id", user.id)
-    .single<Perfil>();
+    .single<PerfilConFicha>();
 
   if (!perfil || !perfil.activo) {
     await supabase.auth.signOut();
@@ -77,7 +77,7 @@ export const obtenerPerfil = cache(async (): Promise<Perfil> => {
  * Exige que el usuario autenticado sea administrador. Redirige a /inicio
  * en caso contrario (no revela al conductor que la ruta existe).
  */
-export const requerirAdmin = cache(async (): Promise<Perfil> => {
+export const requerirAdmin = cache(async (): Promise<PerfilConFicha> => {
   const perfil = await obtenerPerfil();
 
   if (perfil.rol !== "admin") {

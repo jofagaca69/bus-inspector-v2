@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requerirAdmin } from "@/lib/auth/dal";
 import { crearClienteAdmin } from "@/lib/supabase/admin";
 import type { Perfil } from "@/lib/auth/tipos";
@@ -40,7 +41,7 @@ export default async function PaginaUsuarios() {
             key={usuario.id}
             className="flex items-center justify-between gap-4 px-4 py-3"
           >
-            <div>
+            <Link href={`/admin/usuarios/${usuario.id}`} className="min-w-0 flex-1 hover:opacity-80">
               <p className="text-sm font-medium">
                 {usuario.nombre_completo || "(sin nombre)"}
               </p>
@@ -49,7 +50,8 @@ export default async function PaginaUsuarios() {
                 {usuario.rol === "admin" ? "Administrador" : "Conductor"} ·{" "}
                 {usuario.activo ? "Activo" : "Inactivo"}
               </p>
-            </div>
+              <p className="mt-0.5 text-[11px] text-acento">Ver ficha ›</p>
+            </Link>
 
             {usuario.rol !== "admin" && (
               <BotonEstadoUsuario id={usuario.id} activo={usuario.activo} />

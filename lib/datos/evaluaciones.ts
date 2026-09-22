@@ -111,6 +111,93 @@ export const evaluaciones: Record<string, Pregunta[]> = {
       explicacion:
         "La tarjeta de operación es del vehículo, no del conductor: autoriza su vinculación a la empresa y la ruta que presta.",
     },
+    {
+      id: "normativa-9",
+      enunciado: "¿Qué significa la sigla PAS en un accidente de tránsito?",
+      opciones: [
+        "Proteger, Avisar y Socorrer",
+        "Parar, Alejarse y Salir",
+        "Pitar, Alertar y Señalizar",
+        "Proteger, Anotar y Salir",
+      ],
+      correcta: 0,
+      explicacion:
+        "PAS es el protocolo del Ministerio de Transporte y la ANSV: primero proteger la escena, luego avisar a las autoridades y, por último, socorrer si tienes la formación.",
+    },
+    {
+      id: "normativa-10",
+      enunciado: "Según el protocolo PAS, ¿a qué línea avisas de un accidente?",
+      opciones: [
+        "Solo al 123, en todo el país",
+        "Al 123 en ciudad y al #767 en carretera",
+        "Solo al #767, en todo el país",
+        "A ninguna: se espera a que pase una patrulla",
+      ],
+      correcta: 1,
+      explicacion:
+        "En ciudad se marca la línea de emergencias 123 y en carretera el #767. Da siempre tu ubicación exacta y cuántos heridos hay.",
+    },
+    {
+      id: "normativa-11",
+      enunciado: "¿Qué exige la normativa de transporte escolar respecto al acompañante?",
+      opciones: [
+        "No es necesario si el conductor tiene experiencia",
+        "Basta con que sea un estudiante mayor",
+        "Debe ir un adulto con formación en seguridad del vehículo, tránsito, seguridad vial y primeros auxilios",
+        "Solo es obligatorio en rutas nocturnas",
+      ],
+      correcta: 2,
+      explicacion:
+        "El servicio de transporte escolar no puede prestarse sin un adulto acompañante formado en esos temas, sentado cerca de la puerta.",
+    },
+    {
+      id: "normativa-12",
+      enunciado: "¿Quiénes deben tener un Plan Estratégico de Seguridad Vial (PESV)?",
+      opciones: [
+        "Solo las empresas de carga",
+        "Solo los conductores independientes",
+        "Únicamente las entidades públicas",
+        "Las entidades y empresas con más de diez vehículos, o que contraten o administren conductores",
+      ],
+      correcta: 3,
+      explicacion:
+        "Lo exige la metodología del Ministerio de Transporte (Resolución 20223040040595 de 2022) a organizaciones públicas y privadas con esa flota o que manejen personal conductor.",
+    },
+    {
+      id: "normativa-13",
+      enunciado: "Llegas a un accidente con heridos. Según el protocolo PAS, ¿qué haces primero?",
+      opciones: [
+        "Proteger la escena: luces de emergencia y triángulos reflectivos",
+        "Mover de inmediato a los heridos al andén",
+        "Tomar fotos para el seguro",
+        "Llamar a tu empresa antes que a nadie",
+      ],
+      correcta: 0,
+      explicacion:
+        "Proteger es lo primero: si la escena no está señalizada, puede ocurrir un segundo choque con más víctimas, incluido tú.",
+    },
+    {
+      id: "normativa-14",
+      enunciado: "¿Cuál es el límite de velocidad en zonas escolares y residenciales, salvo señal distinta?",
+      opciones: ["50 km/h", "60 km/h", "30 km/h", "20 km/h"],
+      correcta: 2,
+      explicacion:
+        "En zonas escolares y residenciales el límite es 30 km/h, salvo que una señal indique otra cosa. En zona urbana general es 50 km/h.",
+    },
+    {
+      id: "normativa-15",
+      enunciado:
+        "Abandonar a una persona herida sin auxiliarla ni avisar a las autoridades puede constituir:",
+      opciones: [
+        "Una falta menor sin sanción",
+        "El delito de omisión de socorro",
+        "Una simple recomendación",
+        "Un trámite de la aseguradora",
+      ],
+      correcta: 1,
+      explicacion:
+        "No socorrer ni avisar puede constituir el delito de omisión de socorro. Por eso el protocolo PAS existe: avisar siempre es posible, aunque no sepas primeros auxilios.",
+    },
   ],
 
   senales: [
@@ -186,6 +273,111 @@ export const evaluaciones: Record<string, Pregunta[]> = {
       correcta: 1,
       explicacion:
         "Las tres categorías permanentes son reglamentarias, preventivas e informativas; las transitorias se usan en obras o desvíos temporales.",
+    },
+    // --- Reconocer la señal por su imagen (los pictogramas viven en public/senales) ---
+    {
+      id: "senales-img-1",
+      imagen: "/senales/reglamentarias/sr01_pare.png",
+      enunciado: "¿Qué debes hacer al ver esta señal?",
+      opciones: [
+        "Reducir la velocidad y seguir si no viene nadie",
+        "Detenerte por completo, sin excepción",
+        "Ceder el paso solo a los peatones",
+        "Tocar la bocina y continuar",
+      ],
+      correcta: 1,
+      explicacion: "Es la señal PARE (SR-01): obliga a detener el vehículo por completo antes de continuar.",
+    },
+    {
+      id: "senales-img-2",
+      imagen: "/senales/reglamentarias/sr02_ceda_el_paso.png",
+      enunciado: "¿Qué indica esta señal?",
+      opciones: [
+        "Prohibido adelantar",
+        "Velocidad máxima",
+        "Ceda el paso",
+        "Zona de parqueo",
+      ],
+      correcta: 2,
+      explicacion: "Es CEDA EL PASO (SR-02): debes dar prioridad a los vehículos que circulan por la vía a la que te incorporas.",
+    },
+    {
+      id: "senales-img-3",
+      imagen: "/senales/reglamentarias/sr26_prohibido_adelantar.png",
+      enunciado: "¿Qué prohíbe esta señal?",
+      opciones: [
+        "Adelantar a otros vehículos",
+        "Girar a la izquierda",
+        "Parquear",
+        "Circular a más de 30 km/h",
+      ],
+      correcta: 0,
+      explicacion: "Es PROHIBIDO ADELANTAR (SR-26): no puedes adelantar a otros vehículos en ese tramo.",
+    },
+    {
+      id: "senales-img-4",
+      imagen: "/senales/reglamentarias/sr30_velocidad_maxima.png",
+      enunciado: "Esta señal reglamentaria indica:",
+      opciones: [
+        "La velocidad mínima obligatoria",
+        "La velocidad máxima permitida en el tramo",
+        "La distancia al próximo paradero",
+        "El peso máximo del vehículo",
+      ],
+      correcta: 1,
+      explicacion: "Es VELOCIDAD MÁXIMA (SR-30): el número indica el límite en km/h que no debes superar.",
+    },
+    {
+      id: "senales-img-5",
+      imagen: "/senales/preventivas/sp47_zona_escolar.png",
+      enunciado: "Al ver esta señal preventiva, ¿qué debes hacer?",
+      opciones: [
+        "Aumentar la velocidad para pasar rápido",
+        "Reducir la velocidad y extremar la atención: puede haber niños cruzando",
+        "Detenerte siempre por completo",
+        "Ignorarla si es de noche",
+      ],
+      correcta: 1,
+      explicacion: "Es ZONA ESCOLAR (SP-47): advierte la presencia frecuente de niños. Reduce la velocidad y anticipa.",
+    },
+    {
+      id: "senales-img-6",
+      imagen: "/senales/preventivas/sp23_semaforo.png",
+      enunciado: "¿Qué advierte esta señal preventiva?",
+      opciones: [
+        "Un semáforo adelante",
+        "Un paso a nivel",
+        "Un cruce de peatones",
+        "Una zona de derrumbes",
+      ],
+      correcta: 0,
+      explicacion: "Es SEMÁFORO (SP-23): avisa que más adelante hay un semáforo, para que te prepares a detenerte.",
+    },
+    {
+      id: "senales-img-7",
+      imagen: "/senales/informativas/si08_paradero_buses.png",
+      enunciado: "¿Qué informa esta señal?",
+      opciones: [
+        "Estación de servicio",
+        "Zona de parqueo",
+        "Aeropuerto",
+        "Paradero de buses",
+      ],
+      correcta: 3,
+      explicacion: "Es PARADERO DE BUSES (SI-08): señal informativa que indica dónde está el paradero.",
+    },
+    {
+      id: "senales-img-8",
+      imagen: "/senales/reglamentarias/sr28_prohibido_parquear.png",
+      enunciado: "¿Qué prohíbe esta señal?",
+      opciones: [
+        "Adelantar",
+        "Parquear",
+        "Pitar",
+        "Girar en U",
+      ],
+      correcta: 1,
+      explicacion: "Es PROHIBIDO PARQUEAR (SR-28): no puedes dejar estacionado el vehículo en ese tramo.",
     },
   ],
 
@@ -265,6 +457,97 @@ export const evaluaciones: Record<string, Pregunta[]> = {
       correcta: 1,
       explicacion:
         "Las vendas elásticas sirven tanto para sujetar gasas como para inmovilizar o presionar sobre una hemorragia.",
+    },
+    {
+      id: "pa-8",
+      enunciado: "Hay humo saliendo del capó del bus con pasajeros a bordo. ¿Qué haces primero?",
+      opciones: [
+        "Abrir el capó para ver qué se quema",
+        "Detener el bus en un lugar seguro, apagar el motor y evacuar a los pasajeros",
+        "Echarle agua al motor",
+        "Seguir hasta el próximo paradero",
+      ],
+      correcta: 1,
+      explicacion:
+        "Primero la seguridad de las personas: detener, apagar y evacuar. Abrir el capó con humo o llamas alimenta el fuego con aire.",
+    },
+    {
+      id: "pa-9",
+      enunciado: "Un pasajero está pálido, sudoroso y confundido tras un golpe. ¿Qué haces?",
+      opciones: [
+        "Le das agua y comida para que se recupere",
+        "Lo dejas descansar solo unos minutos",
+        "Llamas al 123, lo acuestas, lo cubres para que no pierda calor y vigilas su respiración",
+        "Le aplicas una bolsa de agua caliente",
+      ],
+      correcta: 2,
+      explicacion:
+        "Son signos de shock: es una emergencia. Se llama al 123, se acuesta, se abriga y se vigila. No se da de comer ni de beber ni se deja solo.",
+    },
+    {
+      id: "pa-10",
+      enunciado: "¿Qué debes hacer al terminar la ruta escolar, antes de cerrar el bus?",
+      opciones: [
+        "Cerrar de inmediato para ahorrar tiempo",
+        "Confiar en que todos los niños bajaron",
+        "Pedirle a un niño que revise",
+        "Recorrer el bus fila por fila para verificar que no quedó nadie dentro",
+      ],
+      correcta: 3,
+      explicacion:
+        "Un niño dormido u oculto en un bus cerrado puede sufrir un golpe de calor en muy poco tiempo. Recorrer el bus fila por fila es una revisión que salva vidas.",
+    },
+    {
+      id: "pa-11",
+      enunciado: "Una persona se atraganta y no puede toser, respirar ni hablar. ¿Qué maniobra aplicas?",
+      opciones: [
+        "Maniobra de Heimlich: compresiones abdominales firmes hacia arriba",
+        "Darle agua para que pase el objeto",
+        "Meterle los dedos a la boca",
+        "Acostarla boca arriba y esperar",
+      ],
+      correcta: 0,
+      explicacion:
+        "Si la obstrucción es total se aplica la maniobra de Heimlich. Nunca se meten los dedos a ciegas ni se da agua.",
+    },
+    {
+      id: "pa-12",
+      enunciado: "Antes de acercarte a una persona herida en la vía, ¿qué compruebas primero?",
+      opciones: [
+        "Si tiene documentos",
+        "Que la escena sea segura para ti",
+        "Si es conocida",
+        "Cuánto tiempo lleva ahí",
+      ],
+      correcta: 1,
+      explicacion:
+        "Si tú resultas herido no puedes ayudar a nadie. Evalúa el peligro (tráfico, fuego, cables) y protege la escena antes de acercarte.",
+    },
+    {
+      id: "pa-13",
+      enunciado: "Un estudiante tiene una crisis de asma. ¿Qué es correcto?",
+      opciones: [
+        "Acostarlo boca arriba",
+        "Ayudarlo a sentarse, ligeramente inclinado hacia adelante, y a usar su propio inhalador",
+        "Darle el inhalador de otro compañero",
+        "Dejarlo solo para que se calme",
+      ],
+      correcta: 1,
+      explicacion:
+        "Sentado respira mejor. Se le ayuda a usar su propio inhalador y se llama al 123 si no mejora, le cuesta hablar o se pone azulado.",
+    },
+    {
+      id: "pa-14",
+      enunciado: "¿Cuándo llamas al 123 ante una convulsión?",
+      opciones: [
+        "Solo si la persona lo pide",
+        "Nunca: pasan solas",
+        "Si es la primera vez, dura más de 5 minutos o no recupera la conciencia",
+        "Solo si ocurre de noche",
+      ],
+      correcta: 2,
+      explicacion:
+        "Una convulsión que dura más de 5 minutos, es la primera de la persona o no recupera la conciencia requiere atención médica urgente.",
     },
   ],
 
@@ -441,6 +724,361 @@ export const evaluaciones: Record<string, Pregunta[]> = {
       correcta: 1,
       explicacion:
         "No recordar tramos recientes de la vía, junto con párpados pesados y bostezos frecuentes, indica que ya estás en riesgo.",
+    },
+  ],
+
+  // --- Temas nuevos del centro de aprendizaje (la clave es el slug del tema) ---
+
+  "evacuacion-bus-escolar": [
+    {
+      id: "eb-1",
+      enunciado: "Al evacuar un bus escolar, ¿quién guía a los niños?",
+      opciones: [
+        "Cada niño decide por su cuenta",
+        "El conductor, mientras maneja",
+        "El acompañante",
+        "Los niños más grandes",
+      ],
+      correcta: 2,
+      explicacion:
+        "Salen primero los más cercanos a la salida y el acompañante guía a los niños, en orden y sin correr.",
+    },
+    {
+      id: "eb-2",
+      enunciado: "Terminada la evacuación, ¿dónde reúnes a todos?",
+      opciones: [
+        "Al lado del bus, sobre la vía",
+        "Lejos del vehículo y de la vía",
+        "Dentro del bus",
+        "Cada uno donde prefiera",
+      ],
+      correcta: 1,
+      explicacion:
+        "Lejos del vehículo y del tráfico, para evitar un incendio, una explosión o un atropello.",
+    },
+    {
+      id: "eb-3",
+      enunciado: "Antes de dar por terminada la evacuación, ¿qué confirmas?",
+      opciones: [
+        "Que nadie quedó dentro: cuentas a los pasajeros",
+        "Que el bus quedó cerrado con llave",
+        "Que llegó la empresa",
+        "Que nadie tome fotos",
+      ],
+      correcta: 0,
+      explicacion: "Contar a los pasajeros es la única forma de asegurarte de que nadie quedó atrás.",
+    },
+    {
+      id: "eb-4",
+      enunciado: "¿Qué es una buena práctica de preparación?",
+      opciones: [
+        "Esperar a que ocurra para improvisar",
+        "Guardar el martillo en la bodega",
+        "Ensayar la evacuación de forma periódica",
+        "Tapar las salidas de emergencia con equipaje",
+      ],
+      correcta: 2,
+      explicacion:
+        "Un plan ensayado evita el pánico. Además, las salidas de emergencia y el martillo deben estar libres y a mano.",
+    },
+  ],
+
+  "conduccion-adversa": [
+    {
+      id: "ca-1",
+      enunciado: "En un descenso largo de montaña, ¿qué es lo correcto?",
+      opciones: [
+        "Bajar en neutro para ahorrar combustible",
+        "Usar cambios bajos y el freno motor",
+        "Frenar a fondo durante todo el trayecto",
+        "Apagar el motor",
+      ],
+      correcta: 1,
+      explicacion:
+        "El freno motor evita sobrecalentar los frenos. En neutro lo pierdes y dependes solo del pedal.",
+    },
+    {
+      id: "ca-2",
+      enunciado: "Con lluvia, ¿qué distancia de seguimiento se recomienda?",
+      opciones: ["1 segundo", "3 segundos", "5 a 6 segundos", "Es la misma que con el pavimento seco"],
+      correcta: 2,
+      explicacion:
+        "Con lluvia, niebla o pasajeros de pie se amplía de 3 a 5-6 segundos: el bus necesita más distancia para frenar.",
+    },
+    {
+      id: "ca-3",
+      enunciado: "Con niebla espesa y casi sin visibilidad, lo más prudente es:",
+      opciones: [
+        "Acelerar para salir pronto de la niebla",
+        "Seguir muy de cerca al vehículo de adelante",
+        "Detenerte en un lugar seguro y esperar a que mejore",
+        "Apagar las luces para no encandilar",
+      ],
+      correcta: 2,
+      explicacion: "Si casi no ves, detente en un lugar seguro. Con niebla se usan las luces bajas y se reduce la velocidad.",
+    },
+    {
+      id: "ca-4",
+      enunciado: "Antes de salir en un día de lluvia, ¿qué revisas?",
+      opciones: [
+        "Solo el radio",
+        "Llantas, luces, frenos y limpiaparabrisas",
+        "Solo el aire acondicionado",
+        "Nada: todo se revisa en ruta",
+      ],
+      correcta: 1,
+      explicacion: "Son los cuatro puntos que más influyen en la seguridad con pavimento mojado.",
+    },
+  ],
+
+  "proteccion-de-menores": [
+    {
+      id: "pm-1",
+      enunciado: "¿Puede prestarse el servicio de transporte escolar sin acompañante?",
+      opciones: [
+        "Sí, si la ruta es corta",
+        "Sí, si el conductor tiene experiencia",
+        "No: el servicio no puede prestarse sin acompañante",
+        "Solo en la ruta de regreso",
+      ],
+      correcta: 2,
+      explicacion: "El acompañante adulto es obligatorio: sin él no se presta el servicio.",
+    },
+    {
+      id: "pm-2",
+      enunciado: "En una ruta escolar, ¿cuántos niños pueden ocupar un mismo asiento?",
+      opciones: ["Dos, si son pequeños", "Uno solo", "Tres", "Los que quepan"],
+      correcta: 1,
+      explicacion:
+        "El número de estudiantes debe corresponder a los asientos disponibles: ningún asiento con más de un niño.",
+    },
+    {
+      id: "pm-3",
+      enunciado: "Al terminar la ruta, ¿qué haces antes de cerrar el bus?",
+      opciones: [
+        "Recorrerlo fila por fila para verificar que no quedó nadie",
+        "Cerrarlo de inmediato",
+        "Esperar a que la empresa llame",
+        "Apagar las luces y salir",
+      ],
+      correcta: 0,
+      explicacion: "Un niño dormido u oculto en un bus cerrado corre un riesgo grave. Revisar fila por fila lo evita.",
+    },
+    {
+      id: "pm-4",
+      enunciado: "¿Cuál NO es una conducta esperada de los niños a bordo?",
+      opciones: [
+        "Permanecer sentados",
+        "Usar el cinturón",
+        "Sacar los brazos por la ventana",
+        "Seguir las indicaciones del acompañante",
+      ],
+      correcta: 2,
+      explicacion: "Sacar la cabeza o los brazos por la ventana es peligroso: el acompañante debe evitarlo.",
+    },
+  ],
+
+  "situaciones-dificiles": [
+    {
+      id: "sd-1",
+      enunciado: "Un pasajero se pone agresivo. ¿Cuál es la mejor actitud?",
+      opciones: [
+        "Mantener un tono calmado pero firme y no responder a provocaciones",
+        "Responder con el mismo tono",
+        "Discutir hasta que se calme",
+        "Subir el volumen de la radio",
+      ],
+      correcta: 0,
+      explicacion:
+        "La calma y la firmeza reducen la tensión. Tu prioridad sigue siendo conducir con seguridad; si hay riesgo, pide ayuda.",
+    },
+    {
+      id: "sd-2",
+      enunciado: "El bus falla en plena vía. ¿Qué haces primero?",
+      opciones: [
+        "Seguir hasta que llegue la grúa",
+        "Encender las luces de emergencia y detenerlo en un lugar seguro",
+        "Bajarte a revisar el motor sin señalizar",
+        "Apagar todas las luces",
+      ],
+      correcta: 1,
+      explicacion:
+        "Luces de emergencia, lugar seguro, triángulos reflectivos y aviso a la empresa; si no es seguro permanecer, evacúa.",
+    },
+    {
+      id: "sd-3",
+      enunciado: "Hay una discusión entre pasajeros con el bus en movimiento. ¿Qué prima?",
+      opciones: [
+        "Resolver el conflicto de inmediato",
+        "Terminar la ruta a la mayor velocidad",
+        "La seguridad de la conducción",
+        "Nada en particular",
+      ],
+      correcta: 2,
+      explicacion: "Tu prioridad es conducir con seguridad, no resolver el conflicto mientras el bus está en movimiento.",
+    },
+    {
+      id: "sd-4",
+      enunciado: "¿Un horario justifica seguir manejando con una falla?",
+      opciones: [
+        "Sí, si vas atrasado",
+        "Sí, si la falla parece pequeña",
+        "Solo de noche",
+        "No: ningún horario justifica manejar en condiciones inseguras",
+      ],
+      correcta: 3,
+      explicacion: "Ninguna presión de tiempo justifica poner en riesgo a los pasajeros.",
+    },
+  ],
+
+  "pesv-y-tu-rol": [
+    {
+      id: "pe-1",
+      enunciado: "¿Qué paso del PESV corresponde a la inspección preoperacional diaria de vehículos?",
+      opciones: ["Paso 16", "Paso 17", "Paso 5", "Paso 24"],
+      correcta: 0,
+      explicacion:
+        "El Paso 16 es la «Inspección de vehículos y equipos». El Paso 17 es el mantenimiento y control de vehículos seguros.",
+    },
+    {
+      id: "pe-2",
+      enunciado: "¿A qué contribuye reportar a tiempo una falla o novedad?",
+      opciones: [
+        "A nada: es solo trámite",
+        "Solo a la aseguradora",
+        "Al plan de mantenimiento preventivo del PESV (Paso 17)",
+        "Solo al taller",
+      ],
+      correcta: 2,
+      explicacion: "Tus reportes alimentan el plan de mantenimiento y evitan que una falla pequeña se vuelva un accidente.",
+    },
+    {
+      id: "pe-3",
+      enunciado: "El PESV es una obligación de:",
+      opciones: [
+        "Cada conductor por separado",
+        "La organización (la empresa), que cuenta contigo para ejecutarlo",
+        "Solo del Ministerio de Transporte",
+        "Solo de los pasajeros",
+      ],
+      correcta: 1,
+      explicacion:
+        "Lo deben diseñar e implementar las organizaciones obligadas; tu inspección diaria y tu conducta son parte de su ejecución.",
+    },
+  ],
+
+  "ergonomia-y-salud": [
+    {
+      id: "es-1",
+      enunciado: "¿Cada cuánto se recomienda una pausa en ruta?",
+      opciones: [
+        "Cada 2 horas o 200 km",
+        "Cada 8 horas",
+        "Solo al terminar el turno",
+        "Nunca, mientras no sientas sueño",
+      ],
+      correcta: 0,
+      explicacion: "Una pausa de 5 a 10 minutos cada 2 horas o 200 km: bájate, estírate y camina.",
+    },
+    {
+      id: "es-2",
+      enunciado: "Tienes dolor persistente en la espalda o el cuello. ¿Qué haces?",
+      opciones: [
+        "Lo normalizas: es normal en conductores",
+        "Lo consultas con tu EPS o tu ARL",
+        "Lo ignoras",
+        "Lo tratas solo con cafeína",
+      ],
+      correcta: 1,
+      explicacion: "El dolor persistente no se normaliza: una consulta a tiempo evita que se vuelva una lesión mayor.",
+    },
+    {
+      id: "es-3",
+      enunciado: "Una buena postura al volante implica:",
+      opciones: [
+        "Reclinarte casi acostado",
+        "Estirar del todo las piernas",
+        "Apoyar toda la espalda en el respaldo",
+        "Subir el apoyacabezas por encima de tu cabeza",
+      ],
+      correcta: 2,
+      explicacion:
+        "Espalda apoyada, piernas sin estirar del todo, brazos ligeramente flexionados y apoyacabezas a la altura de la cabeza.",
+    },
+  ],
+
+  "accidente-pas": [
+    {
+      id: "ap-1",
+      enunciado: "En el protocolo PAS, ¿qué significa la «A»?",
+      opciones: ["Alejar", "Avisar", "Ayudar", "Anotar"],
+      correcta: 1,
+      explicacion: "PAS = Proteger, Avisar y Socorrer.",
+    },
+    {
+      id: "ap-2",
+      enunciado: "Si solo hay daños materiales, antes de mover los vehículos conviene:",
+      opciones: [
+        "Irte del lugar",
+        "Tomar fotos y videos de la posición final",
+        "Discutir con el otro conductor",
+        "Apagar el celular",
+      ],
+      correcta: 1,
+      explicacion:
+        "Documentar la posición final protege a todos. Después se retiran los vehículos para no interrumpir el tránsito.",
+    },
+    {
+      id: "ap-3",
+      enunciado: "Con un herido con posible lesión de cuello o espalda, ¿qué debes evitar?",
+      opciones: [
+        "Llamar al 123",
+        "Moverlo sin necesidad",
+        "Mantenerlo consciente hablándole",
+        "Señalizar la escena",
+      ],
+      correcta: 1,
+      explicacion: "No se mueve a un herido con posible lesión de columna salvo peligro inminente (fuego, tránsito).",
+    },
+  ],
+
+  "eco-conduccion": [
+    {
+      id: "ec-1",
+      enunciado: "Si vas a estar detenido más de un minuto, lo recomendable es:",
+      opciones: [
+        "Dejar el motor en marcha",
+        "Apagar el motor",
+        "Acelerar en vacío",
+        "Mantener revoluciones altas",
+      ],
+      correcta: 1,
+      explicacion: "Con el motor en marcha y el vehículo detenido se consume combustible sin avanzar.",
+    },
+    {
+      id: "ec-2",
+      enunciado: "¿Para qué se usa la primera marcha?",
+      opciones: [
+        "Para todo el recorrido urbano",
+        "Solo para arrancar, pasando pronto a la siguiente",
+        "Para subir cualquier pendiente",
+        "No se usa",
+      ],
+      correcta: 1,
+      explicacion: "La primera es de arranque: mantenerla de más eleva el consumo y el desgaste.",
+    },
+    {
+      id: "ec-3",
+      enunciado: "¿Cuál es un hábito de conducción eficiente?",
+      opciones: [
+        "Acelerones y frenazos",
+        "Circular con las llantas desinfladas",
+        "Ir siempre en cambios cortos",
+        "Mantener velocidad constante y anticipar el tráfico",
+      ],
+      correcta: 3,
+      explicacion:
+        "Anticipar evita frenar de más, y una velocidad constante con llantas bien infladas reduce el consumo.",
     },
   ],
 

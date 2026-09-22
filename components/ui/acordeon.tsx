@@ -11,12 +11,15 @@
 export function Acordeon({
   icono,
   titulo,
+  resumen,
   fuente,
   children,
   tip,
 }: {
   icono: string;
   titulo: string;
+  /** Línea corta bajo el título, visible con el acordeón cerrado. */
+  resumen?: string;
   fuente?: string;
   children: React.ReactNode;
   tip?: string;
@@ -27,7 +30,14 @@ export function Acordeon({
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-acento-suave text-lg">
           {icono}
         </span>
-        <span className="flex-1 text-sm font-semibold">{titulo}</span>
+        <span className="flex min-w-0 flex-1 flex-col">
+          <span className="text-sm font-semibold">{titulo}</span>
+          {resumen && (
+            <span className="mt-0.5 text-xs font-normal leading-snug text-texto-suave">
+              {resumen}
+            </span>
+          )}
+        </span>
         <svg
           viewBox="0 0 20 20"
           fill="none"

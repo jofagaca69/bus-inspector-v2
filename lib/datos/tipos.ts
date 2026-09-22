@@ -7,12 +7,81 @@ import type { NombreIcono } from "@/components/ui/icono";
  * archivo de datos (lib/datos/*.ts) importe solo lo que necesita.
  */
 
+/* ------------------------------------------------------------------ */
+/* Bloques de contenido                                                */
+/* ------------------------------------------------------------------ */
+/*
+ * Vocabulario común de los módulos académicos (normativa, primeros
+ * auxilios, aprendizaje). En vez de "un párrafo por sección", cada entrada
+ * es una lista de bloques tipados que renderiza components/ui/
+ * bloques-contenido.tsx: así el orden y la mezcla de texto, video,
+ * imágenes y piezas interactivas viven en los datos, no en el JSX de cada
+ * página. Regla editorial: ningún bloque "texto" pasa de ~400 caracteres;
+ * lo enumerable va en "lista", "pasos", "comparativa" o "tarjetas-icono".
+ */
+
+/** Video de YouTube. El `id` debe verificarse con scripts/verificar-videos.mjs. */
+export interface VideoTema {
+  id: string;
+  titulo: string;
+  /** Quién lo publica (ej. "Cruz Roja Colombiana"). */
+  fuente?: string;
+  /** Texto libre, ej. "4 min". */
+  duracion?: string;
+}
+
+export interface PasoGuia {
+  texto: string;
+  /** Aclaración corta bajo el paso. */
+  detalle?: string;
+}
+
+export interface TarjetaIcono {
+  titulo: string;
+  /** Una línea visible en la tarjeta. */
+  resumen: string;
+  /** Icono SVG del set de dominio vehicular... */
+  icono?: NombreIcono;
+  /** ...o un emoji, cuando no hay glifo propio. Uno de los dos. */
+  emoji?: string;
+  /** Detalle que se abre al tocar la tarjeta; sin él la tarjeta no es táctil. */
+  detalle?: string[];
+}
+
+export interface FilaComparativa {
+  etiqueta: string;
+  valor: string;
+  nota?: string;
+}
+
+export type BloqueContenido =
+  | { tipo: "texto"; texto: string }
+  | { tipo: "lista"; titulo?: string; items: string[] }
+  | { tipo: "pasos"; titulo?: string; pasos: PasoGuia[] }
+  | { tipo: "video"; video: VideoTema }
+  | { tipo: "imagen"; src: string; alt: string; pie?: string }
+  /** `ids` son `Senal.id` de lib/datos/senales.ts (pictogramas ya en public/senales). */
+  | { tipo: "senales"; titulo?: string; ids: string[] }
+  | { tipo: "tarjetas-icono"; titulo?: string; items: TarjetaIcono[] }
+  | { tipo: "comparativa"; titulo?: string; filas: FilaComparativa[] }
+  | { tipo: "cita-legal"; cita: CitaLegal }
+  /** Enlace a un recurso oficial externo (guía, norma, portal educativo). */
+  | { tipo: "enlace"; titulo: string; url: string; fuente: string; descripcion?: string }
+  | { tipo: "alerta"; variante: "info" | "peligro"; texto: string }
+  /** Interactivo: el conductor marca lo que ya cumple. Estado solo en el cliente. */
+  | { tipo: "checklist"; titulo?: string; items: string[] };
+
+export type CategoriaNormativa = "documentos" | "vehiculo" | "conducta" | "operacion";
+
 export interface EntradaNormativa {
   id: string;
   icono: string;
   titulo: string;
+  /** Una línea visible bajo el título y usada por el buscador. */
+  resumen: string;
   fuente: string;
-  cuerpo: string;
+  categoria: CategoriaNormativa;
+  bloques: BloqueContenido[];
   tip: string;
 }
 
@@ -30,33 +99,54 @@ export interface Senal {
   categoria: CategoriaSenal;
 }
 
-export interface SeccionTema {
-  titulo: string;
-  contenido: string;
-}
+export type CategoriaAprendizaje =
+  | "conduccion"
+  | "vehiculo"
+  | "pasajeros"
+  | "salud"
+  | "emergencias"
+  | "gestion";
 
 export interface TemaAprendizaje {
+  /** También es la clave de su banco de preguntas en lib/datos/evaluaciones.ts. */
   slug: string;
   titulo: string;
   resumen: string;
   icono: string;
-  secciones: SeccionTema[];
+  categoria: CategoriaAprendizaje;
+  /** Cuerpo del tema: mezcla de texto, listas, tarjetas, señales, enlaces, etc. */
+  bloques: BloqueContenido[];
   puntosClave: string[];
-  /** IDs de video de YouTube, validados contra el endpoint oEmbed. */
-  videos: string[];
+  /** Videos recomendados (de lib/datos/videos.ts, ya verificados). */
+  videos: VideoTema[];
 }
+
+/**
+ * Qué tan urgente es pedir ayuda en esa situación: ordena y colorea las
+ * guías para que, bajo estrés, lo más grave se encuentre primero.
+ * "vital" = riesgo para la vida (llamar al 123 de inmediato),
+ * "urgente" = atención médica pronta, "general" = procedimiento inicial.
+ */
+export type GravedadAuxilio = "vital" | "urgente" | "general";
 
 export interface GuiaAuxilio {
   id: string;
   titulo: string;
   icono: string;
-  pasos: string[];
+  gravedad: GravedadAuxilio;
+  /** Una línea: en qué situación se usa esta guía. */
+  resumen: string;
+  /** Cuándo llamar al 123 en esta situación, en una frase. */
+  cuandoLlamar: string;
+  pasos: PasoGuia[];
   queNoHacer: string[];
+  video?: VideoTema;
 }
 
 export interface ItemBotiquin {
   nombre: string;
   paraQueSirve: string;
+  emoji: string;
 }
 
 export interface ContactoEmergencia {
@@ -67,6 +157,11 @@ export interface ContactoEmergencia {
 
 export interface Pregunta {
   id: string;
+  /** Imagen opcional sobre el enunciado (ej. el pictograma de una señal). */
+  imagen?: string;
+  /** Texto alternativo de `imagen`. Para preguntas de "¿qué señal es?" debe
+   * quedar vacío (o no definirse): describirla en el alt entregaría la respuesta. */
+  alt?: string;
   enunciado: string;
   opciones: string[];
   /** Índice (0-based) de la opción correcta dentro de `opciones`. */
